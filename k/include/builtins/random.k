@@ -1,0 +1,10 @@
+// Copyright (c) 2012-2014 K Team. All Rights Reserved.
+require "int.k"
+
+module RANDOM-HOOKS
+  imports #RANDOM-INTERFACE
+  imports INT-HOOKS
+
+  syntax Int ::= "randomRandom" "(" Int ")" [function, klabel(randomRandom), hook(#RANDOM:randomRandom)]
+
+endmodule

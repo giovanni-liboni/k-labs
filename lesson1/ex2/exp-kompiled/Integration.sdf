@@ -1,0 +1,1011 @@
+module Integration
+
+imports Common
+imports KTechnique
+imports KBuiltinsBasic
+
+imports Variables
+
+exports
+
+context-free syntax
+context-free priorities
+{
+    "~Int" Int -> Int {cons("Int1269Syn")}
+} > { left:
+    Int "^Int" Int -> Int {left, cons("Int177Syn")}
+} > { left:
+    Int "*Int" Int -> Int {left, cons("Int174Syn")}
+    Int "/Int" Int -> Int {left, cons("Int1228Syn")}
+    Int "%Int" Int -> Int {left, cons("Int1352Syn")}
+    Int "divInt" Int -> Int {left, cons("Int1460Syn")}
+    Int "modInt" Int -> Int {left, cons("Int175Syn")}
+} > { left:
+    Int "+Int" Int -> Int {left, cons("Int1369Syn")}
+    Int "-Int" Int -> Int {left, cons("Int1302Syn")}
+} > { left:
+    Int ">>Int" Int -> Int {left, cons("Int1237Syn")}
+    Int "<<Int" Int -> Int {left, cons("Int1262Syn")}
+} > { left:
+    Int "&Int" Int -> Int {left, cons("Int1265Syn")}
+} > { left:
+    Int "xorInt" Int -> Int {left, cons("Int196Syn")}
+} > { left:
+    Int "|Int" Int -> Int {left, cons("Int194Syn")}
+}
+
+context-free priorities
+{
+    "--Float" Float -> Float {cons("Float1366Syn")}
+} > {
+    Float "^Float" Float -> Float {left, cons("Float122Syn")}
+} > {
+    Float "*Float" Float -> Float {left, cons("Float1242Syn")}
+    Float "/Float" Float -> Float {left, cons("Float172Syn")}
+    Float "%Float" Float -> Float {left, cons("Float1454Syn")}
+} > {
+    Float "+Float" Float -> Float {left, cons("Float1546Syn")}
+    Float "-Float" Float -> Float {left, cons("Float1367Syn")}
+}
+
+context-free priorities
+{
+    K "|->" K -> Map {cons("Map179Syn")}
+} > {
+    Map Map -> Map {left, cons("Map1254Syn")}
+}
+
+context-free priorities
+{
+    "notBool" Bool -> Bool {cons("Bool1393Syn")}
+} > {
+    Bool "andBool" Bool -> Bool {left, cons("Bool1530Syn")}
+    K "andThenBool" K -> Bool {left, cons("Bool1376Syn")}
+} > {
+    Bool "xorBool" Bool -> Bool {left, cons("Bool1236Syn")}
+} > {
+    Bool "orBool" Bool -> Bool {left, cons("Bool1362Syn")}
+    K "orElseBool" K -> Bool {left, cons("Bool1525Syn")}
+} > {
+    Bool "impliesBool" Bool -> Bool {left, cons("Bool1507Syn")}
+} > { left:
+    Bool "==Bool" Bool -> Bool {left, cons("Bool1406Syn")}
+    Bool "=/=Bool" Bool -> Bool {left, cons("Bool1442Syn")}
+}
+
+context-free priorities
+{ left:
+    K "==K" K -> Bool {left, cons("Bool1539Syn")}
+    K "=/=K" K -> Bool {left, cons("Bool193Syn")}
+}
+
+context-free priorities
+{
+    K "==K" K -> Bool {left, cons("Bool1539Syn")}
+    Bag "==Bag" Bag -> Bool {left, cons("Bool138Syn")}
+    Bag "=/=Bag" Bag -> Bool {left, cons("Bool1342Syn")}
+    K "=/=K" K -> Bool {left, cons("Bool193Syn")}
+} > {
+    Bool "impliesBool" Bool -> Bool {left, cons("Bool1507Syn")}
+    "notBool" Bool -> Bool {cons("Bool1393Syn")}
+    K "andThenBool" K -> Bool {left, cons("Bool1376Syn")}
+    Bool "orBool" Bool -> Bool {left, cons("Bool1362Syn")}
+    K "orElseBool" K -> Bool {left, cons("Bool1525Syn")}
+    Bool "xorBool" Bool -> Bool {left, cons("Bool1236Syn")}
+    Bool "andBool" Bool -> Bool {left, cons("Bool1530Syn")}
+}
+
+context-free priorities
+{ left:
+    Bag "==Bag" Bag -> Bool {left, cons("Bool138Syn")}
+    Bag "=/=Bag" Bag -> Bool {left, cons("Bool1342Syn")}
+}
+
+context-free priorities
+{
+    Int -> Exp {}
+    Exp "*" Exp -> Exp {cons("Exp1429Syn")}
+    Exp "/" Exp -> Exp {cons("Exp1464Syn")}
+} > {
+    Exp "+" Exp -> Exp {cons("Exp1404Syn")}
+    Exp "-" Exp -> Exp {cons("Exp1382Syn")}
+    "let" InsertDzId "=" InsertDzExp "in" Exp -> Exp {cons("Exp1503Syn")}
+}
+
+%% subsorts 1
+context-free priorities
+{
+    Nat -> K
+    Set -> K
+    Variable -> K
+    MInt -> K
+    LowerCase -> K
+    CamelCaseId -> K
+    String -> K
+    Int -> K
+    Bool -> K
+    Char -> K
+    Stream -> K
+    List -> K
+    TCPAnswer -> K
+    DzInt -> K
+    DzString -> K
+    DzBool -> K
+    PascalCaseId -> K
+    UpperCase -> K
+    TCPError -> K
+    Float -> K
+    IOError -> K
+    Id -> K
+    Exp -> K
+    Map -> K
+    DzFloat -> K
+} .> {
+    DzFloat -> Float
+    TCPError -> TCPAnswer
+    IOError -> TCPError
+    Id -> Variable
+    DzInt -> Int
+    DzString -> String
+    DzBool -> Bool
+    Int -> Exp
+    String -> TCPAnswer
+} .> {
+    K -> Nat
+    K -> Set
+    K -> Variable
+    K -> MInt
+    K -> LowerCase
+    K -> CamelCaseId
+    K -> String
+    K -> Int
+    K -> Bool
+    K -> Char
+    K -> Stream
+    K -> List
+    K -> TCPAnswer
+    K -> DzInt
+    K -> DzString
+    K -> DzBool
+    K -> PascalCaseId
+    K -> UpperCase
+    K -> TCPError
+    K -> Float
+    K -> IOError
+    K -> Id
+    K -> Exp
+    K -> Map
+    K -> DzFloat
+}
+
+%% subsorts 1a
+context-free priorities
+{
+    Nat -> K
+    Set -> K
+    Variable -> K
+    MInt -> K
+    LowerCase -> K
+    CamelCaseId -> K
+    String -> K
+    Int -> K
+    Bool -> K
+    Char -> K
+    Stream -> K
+    List -> K
+    TCPAnswer -> K
+    DzInt -> K
+    DzString -> K
+    DzBool -> K
+    PascalCaseId -> K
+    UpperCase -> K
+    TCPError -> K
+    Float -> K
+    IOError -> K
+    Id -> K
+    Exp -> K
+    Map -> K
+    DzFloat -> K
+} .> {
+    K -> Nat
+    K -> Set
+    K -> Variable
+    K -> MInt
+    K -> LowerCase
+    K -> CamelCaseId
+    K -> String
+    K -> Int
+    K -> Bool
+    K -> Char
+    K -> Stream
+    K -> List
+    K -> TCPAnswer
+    K -> DzInt
+    K -> DzString
+    K -> DzBool
+    K -> PascalCaseId
+    K -> UpperCase
+    K -> TCPError
+    K -> Float
+    K -> IOError
+    K -> Id
+    K -> Exp
+    K -> Map
+    K -> DzFloat
+}
+
+%% subsorts 2
+context-free priorities
+{
+    K -> Nat
+    K -> Set
+    K -> Variable
+    K -> MInt
+    K -> LowerCase
+    K -> CamelCaseId
+    K -> String
+    K -> Int
+    K -> Bool
+    K -> Char
+    K -> Stream
+    K -> List
+    K -> TCPAnswer
+    K -> DzInt
+    K -> DzString
+    K -> DzBool
+    K -> PascalCaseId
+    K -> UpperCase
+    K -> TCPError
+    K -> Float
+    K -> IOError
+    K -> Id
+    K -> Exp
+    K -> Map
+    K -> DzFloat
+} .> {
+    Nat -> K
+    Set -> K
+    Variable -> K
+    MInt -> K
+    LowerCase -> K
+    CamelCaseId -> K
+    String -> K
+    Int -> K
+    Bool -> K
+    Char -> K
+    Stream -> K
+    List -> K
+    TCPAnswer -> K
+    DzInt -> K
+    DzString -> K
+    DzBool -> K
+    PascalCaseId -> K
+    UpperCase -> K
+    TCPError -> K
+    Float -> K
+    IOError -> K
+    Id -> K
+    Exp -> K
+    Map -> K
+    DzFloat -> K
+}
+context-free syntax
+    "uleMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool10Syn")}
+    "#buffer" "(" InsertDzK ")" -> Stream {cons("Stream12Syn")}
+    "#counter" -> Int {cons("Int13Syn")}
+    "#read" "(" InsertDzInt "," InsertDzInt ")" -> KItem {cons("KItem14Syn")}
+    "sgeMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool15Syn")}
+    K "inKList" KList -> Bool {cons("Bool16Syn")}
+    "findChar" "(" InsertDzString "," InsertDzString "," InsertDzInt ")" -> Int {cons("Int17Syn")}
+    "isKLabelConstant" "(" InsertDzKLabel ")" -> Bool {cons("Bool18Syn")}
+    "#EISDIR" -> IOError {cons("IOError19Syn")}
+    "K2Sort" "(" InsertDzK ")" -> String {cons("String120Syn")}
+    "removeAll" "(" InsertDzMap "," InsertDzSet ")" -> Map {cons("Map123Syn")}
+    "#string2klist" "(" InsertDzString ")" -> KList {cons("KList124Syn")}
+    "isVariable" "(" InsertDzMap ")" -> Bool {cons("Bool125Syn")}
+    "#substituteBinder" "(" InsertDzK "," InsertDzMap "," InsertDzSet ")" -> K {cons("K126Syn")}
+    "sqrtFloat" "(" InsertDzFloat ")" -> Float {cons("Float127Syn")}
+    Map "[" InsertDzK "<-" InsertDzK "]" -> Map {cons("Map128Syn")}
+    "sinFloat" "(" InsertDzFloat ")" -> Float {cons("Float129Syn")}
+    Map "=Map" Map -> Bool {cons("Bool130Syn")}
+    String "<String" String -> Bool {cons("Bool132Syn")}
+    Set "=Set" Set -> Bool {cons("Bool133Syn")}
+    "#freeVars" "(" InsertDzKList ")" -> Set {cons("Set134Syn")}
+    "roundFloat" "(" InsertDzFloat "," InsertDzInt "," InsertDzInt ")" -> Float {cons("Float135Syn")}
+    "values" "(" InsertDzMap ")" -> List {cons("List136Syn")}
+    "#rebind2" "(" InsertDzK "," InsertDzInt "," InsertDzMap "," InsertDzK ")" -> K {cons("K137Syn")}
+    Id -> Variable {}
+    ".List" -> List {cons("List139Syn")}
+    "#freshSymSortN" "(" InsertDzString "," InsertDzInt ")" -> K {cons("K140Syn")}
+    "addMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt142Syn")}
+    "#EBADF" -> IOError {cons("IOError143Syn")}
+    "#ostream" "(" InsertDzInt ")" -> Stream {cons("Stream144Syn")}
+    "KLabel2String" "(" InsertDzKLabel ")" -> String {cons("String145Syn")}
+    "isBuiltin" "(" InsertDzK ")" -> Bool {cons("Bool146Syn")}
+    "#stderr" -> Int {cons("Int147Syn")}
+    "miMInt" "(" InsertDzList ")" -> MInt {cons("MInt148Syn")}
+    "signFloat" "(" InsertDzFloat ")" -> Bool {cons("Bool149Syn")}
+    "isKResult" "(" InsertDzKItem ")" -> Bool {cons("Bool150Syn")}
+    "exponentFloat" "(" InsertDzFloat ")" -> Int {cons("Int152Syn")}
+    Map "-Map" Map -> Map {cons("Map153Syn")}
+    TCPError -> TCPAnswer {}
+    "#checkTCPAnswer" "(" InsertDzString ")" -> TCPAnswer {cons("TCPAnswer154Syn")}
+    "ashrMInt" "(" InsertDzMInt "," InsertDzInt ")" -> MInt {cons("MInt155Syn")}
+    "categoryChar" "(" InsertDzString ")" -> String {cons("String156Syn")}
+    "#substitute" "(" InsertDzK "," InsertDzMap ")" -> K {cons("K157Syn")}
+    "substrString" "(" InsertDzString "," InsertDzInt "," InsertDzInt ")" -> String {cons("String158Syn")}
+    "saddMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List159Syn")}
+    Int "dividesInt" Int -> Bool {cons("Bool160Syn")}
+    "String2KLabel" "(" InsertDzString ")" -> KLabel {cons("KLabel162Syn")}
+    Set "-Set" Set -> Set {cons("Set163Syn")}
+    "isBounding" "(" InsertDzKLabel "," InsertDzInt ")" -> Bool {cons("Bool164Syn")}
+    "#parseInput" "(" InsertDzString "," InsertDzString ")" -> Stream {cons("Stream165Syn")}
+    "#boundVars" "(" InsertDzK ")" -> K {cons("K166Syn")}
+    "#substituteList1" "(" InsertDzK "," InsertDzMap "," InsertDzSet "," InsertDzKList ")" -> K {cons("K167Syn")}
+    String "=/=String" String -> Bool {left, cons("Bool168Syn")}
+    "freshId" "(" InsertDzInt ")" -> Id {cons("Id169Syn")}
+    DzInt -> Int {}
+    "getMatching" "(" InsertDzKList "," InsertDzKList ")" -> Map {cons("Map170Syn")}
+    "#freezer" K -> KLabel {cons("KLabel173Syn")}
+    "ordChar" "(" InsertDzString ")" -> Int {cons("Int176Syn")}
+    "#distinctCounter" "(" InsertDzInt ")" -> Int {cons("Int178Syn")}
+    K "|->" K -> Map {cons("Map179Syn")}
+    "freshInt" "(" InsertDzInt ")" -> Int {cons("Int180Syn")}
+    "size" "(" InsertDzList ")" -> Int {cons("Int182Syn")}
+    "andMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt183Syn")}
+    Int "=Int" Int -> Bool {cons("Bool184Syn")}
+    "updateMap" "(" InsertDzMap "," InsertDzMap ")" -> Map {cons("Map185Syn")}
+    "#substituteKArrow" "(" InsertDzK "," InsertDzMap "," InsertDzSet "," InsertDzK ")" -> K {cons("K186Syn")}
+    "String2Bag" "(" InsertDzString ")" -> Bag {cons("Bag187Syn")}
+    "ListItem" "(" InsertDzK ")" -> List {cons("List188Syn")}
+    "expFloat" "(" InsertDzFloat ")" -> Float {cons("Float189Syn")}
+    "rfindChar" "(" InsertDzString "," InsertDzString "," InsertDzInt ")" -> Int {cons("Int190Syn")}
+    "acosFloat" "(" InsertDzFloat ")" -> Float {cons("Float192Syn")}
+    "isSymbolicK" "(" InsertDzList ")" -> KItem {cons("KItem195Syn")}
+    "#lstat" "(" InsertDzString ")" -> KList {cons("KList197Syn")}
+    "shlMInt" "(" InsertDzMInt "," InsertDzInt ")" -> MInt {cons("MInt198Syn")}
+    "trim" "(" InsertDzString ")" -> String {cons("String199Syn")}
+    "#parseInModule" "(" InsertDzString "," InsertDzString "," InsertDzString ")" -> KItem {cons("KItem1200Syn")}
+    "ugeMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1202Syn")}
+    "maxFloat" "(" InsertDzFloat "," InsertDzFloat ")" -> Float {cons("Float1203Syn")}
+    "#statTypes" "(" InsertDzKList ")" -> KList {cons("KList1204Syn")}
+    "#opendir" "(" InsertDzString ")" -> KList {cons("KList1205Syn")}
+    Int "<Int" Int -> Bool {left, cons("Bool1206Syn")}
+    KLabel "=KLabel" KLabel -> Bool {cons("Bool1207Syn")}
+    "exponentBitsFloat" "(" InsertDzFloat ")" -> Int {cons("Int1208Syn")}
+    "#tcpRequest" "(" InsertDzString ")" -> TCPAnswer {cons("TCPAnswer1220Syn")}
+    "absInt" "(" InsertDzInt ")" -> Int {cons("Int1222Syn")}
+    "String2Float" "(" InsertDzString ")" -> Float {cons("Float1223Syn")}
+    "mi" "(" InsertDzInt "," InsertDzInt ")" -> MInt {cons("MInt1224Syn")}
+    "smaxMInt" "(" InsertDzInt ")" -> Int {cons("Int1225Syn")}
+    "uoverflowMInt" "(" InsertDzInt "," InsertDzInt ")" -> Bool {cons("Bool1226Syn")}
+    "#freshSymN" "(" InsertDzK "," InsertDzInt ")" -> K {cons("K1227Syn")}
+    IOError -> TCPError {}
+    "#string2Int" "(" InsertDzK ")" -> K {cons("K1230Syn")}
+    "Float2Int" "(" InsertDzFloat ")" -> Int {cons("Int1232Syn")}
+    "cool" "(" InsertDzK ")" -> K {cons("K1233Syn")}
+    "isVariable" "(" InsertDzSet ")" -> Bool {cons("Bool1234Syn")}
+    "range" "(" InsertDzList "," InsertDzInt "," InsertDzInt ")" -> List {cons("List1235Syn")}
+    "rtrim" "(" InsertDzString ")" -> String {cons("String1238Syn")}
+    "bitwidthMInt" "(" InsertDzMInt ")" -> Int {cons("Int1239Syn")}
+    "String2Bool" "(" InsertDzTCPAnswer ")" -> Bool {cons("Bool1240Syn")}
+    "cosFloat" "(" InsertDzFloat ")" -> Float {cons("Float1243Syn")}
+    "chrChar" "(" InsertDzInt ")" -> String {cons("String1244Syn")}
+    "directionalityChar" "(" InsertDzString ")" -> String {cons("String1245Syn")}
+    DzBool -> Bool {}
+    "#patternMatch" "(" InsertDzKList "," InsertDzKList ")" -> Map {cons("Map1246Syn")}
+    "#substituteList" "(" InsertDzList "," InsertDzMap "," InsertDzSet "," InsertDzList ")" -> List {cons("List1247Syn")}
+    "isNaN" "(" InsertDzFloat ")" -> Bool {cons("Bool1248Syn")}
+    Set "<=Set" Set -> Bool {cons("Bool1249Syn")}
+    KList "=KList" KList -> Bool {cons("Bool1250Syn")}
+    Float ">=Float" Float -> Bool {left, cons("Bool1252Syn")}
+    Float "<Float" Float -> Bool {left, cons("Bool1253Syn")}
+    Map Map -> Map {left, cons("Map1254Syn")}
+    "negMInt" "(" InsertDzMInt ")" -> MInt {cons("MInt1255Syn")}
+    "udivMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1256Syn")}
+    "atan2Float" "(" InsertDzFloat "," InsertDzFloat ")" -> Float {cons("Float1257Syn")}
+    "Float2String" "(" InsertDzFloat ")" -> String {cons("String1258Syn")}
+    "#putc" "(" InsertDzInt "," InsertDzInt ")" -> K {cons("K1259Syn")}
+    "randomRandom" "(" InsertDzInt ")" -> Int {cons("Int1260Syn")}
+    "#noIO" -> Stream {cons("Stream1263Syn")}
+    "#substitutePlainList" "(" InsertDzK "," InsertDzMap ")" -> K {cons("K1264Syn")}
+    Float "=/=Float" Float -> Bool {left, cons("Bool1266Syn")}
+    "#tokenToString" "(" InsertDzK ")" -> String {cons("String1267Syn")}
+    "isCollection" "(" InsertDzK ")" -> K {cons("K1268Syn")}
+    "#EACCES" -> IOError {cons("IOError1270Syn")}
+    "subMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1272Syn")}
+    "#freshVar" "(" InsertDzK "," InsertDzSet ")" -> K {cons("K1273Syn")}
+    "#parse" "(" InsertDzString "," InsertDzString ")" -> KItem {cons("KItem1274Syn")}
+    List "=List" List -> Bool {cons("Bool1275Syn")}
+    "isLocalFreshVar" "(" InsertDzK ")" -> Bool {cons("Bool1276Syn")}
+    "intersectSet" "(" InsertDzSet "," InsertDzSet ")" -> Set {cons("Set1277Syn")}
+    "Base2String" "(" InsertDzInt "," InsertDzInt ")" -> String {cons("String1278Syn")}
+    "findString" "(" InsertDzString "," InsertDzString "," InsertDzInt ")" -> Int {cons("Int1279Syn")}
+    "Int2String" "(" InsertDzInt ")" -> String {cons("String1280Syn")}
+    K "[" InsertDzMap "]" -> K {cons("K1282Syn")}
+    Set Set -> Set {left, cons("Set1284Syn")}
+    "#substitutePlainList1" "(" InsertDzK "," InsertDzMap "," InsertDzKList ")" -> K {cons("K1285Syn")}
+    "sminMInt" "(" InsertDzInt ")" -> Int {cons("Int1286Syn")}
+    "#rebind1" "(" InsertDzK "," InsertDzMap ")" -> K {cons("K1287Syn")}
+    "ssubMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List1288Syn")}
+    "ltrim" "(" InsertDzString ")" -> String {cons("String1289Syn")}
+    Map "[" InsertDzK "]" -> K {cons("K1290Syn")}
+    "SMTLibQuery" "(" InsertDzBool ")" -> String {cons("String1292Syn")}
+    "#write" "(" InsertDzInt "," InsertDzString ")" -> K {cons("K1293Syn")}
+    "xorMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1294Syn")}
+    K "#inKList" KList -> Bool {cons("Bool1295Syn")}
+    "Vars2SMTLib" "(" InsertDzSet ")" -> String {cons("String1296Syn")}
+    "rootFloat" "(" InsertDzFloat "," InsertDzInt ")" -> Float {cons("Float1297Syn")}
+    "absFloat" "(" InsertDzFloat ")" -> Float {cons("Float1298Syn")}
+    "isSymbolicBag" "(" InsertDzBag ")" -> KItem {cons("KItem1299Syn")}
+    "Bag2String" "(" InsertDzBag ")" -> String {cons("String1300Syn")}
+    "#if" InsertDzBool "#then" InsertDzK "#else" InsertDzK "#fi" -> K {cons("K1303Syn")}
+    "#substituteBinder1" "(" InsertDzK "," InsertDzMap "," InsertDzSet "," InsertDzSet ")" -> K {cons("K1304Syn")}
+    "#isWhiteSpace" "(" InsertDzString ")" -> Bool {cons("Bool1305Syn")}
+    "SMTCall" "(" InsertDzString ")" -> String {cons("String1306Syn")}
+    "logFloat" "(" InsertDzFloat ")" -> Float {cons("Float1307Syn")}
+    "SetItem" "(" InsertDzK ")" -> Set {cons("Set1308Syn")}
+    "#getVars1" "(" InsertDzKList "," InsertDzSet ")" -> Set {cons("Set1309Syn")}
+    "uremMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1320Syn")}
+    "#open" "(" InsertDzString "," InsertDzString ")" -> KItem {cons("KItem1322Syn")}
+    "choice" "(" InsertDzSet ")" -> K {cons("K1323Syn")}
+    KLabel "==KLabel" KLabel -> Bool {cons("Bool1324Syn")}
+    "String2Int" "(" InsertDzString ")" -> Int {cons("Int1325Syn")}
+    "mIntOfDigits" "(" InsertDzList ")" -> MInt {cons("MInt1326Syn")}
+    "#binderSplit" "(" InsertDzK ")" -> K {cons("K1327Syn")}
+    KList "=/=KList" KList -> Bool {cons("Bool1328Syn")}
+    "K2String" "(" InsertDzK ")" -> String {cons("String1329Syn")}
+    "ugtMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1330Syn")}
+    "zeroMInt" "(" InsertDzMInt ")" -> Bool {cons("Bool1332Syn")}
+    "uminMInt" "(" InsertDzInt ")" -> Int {cons("Int1333Syn")}
+    Int "=/=Int" Int -> Bool {left, cons("Bool1334Syn")}
+    "#isDigit" "(" InsertDzString ")" -> Bool {cons("Bool1335Syn")}
+    "#systemTypes" "(" InsertDzKList ")" -> KItem {cons("KItem1336Syn")}
+    DzString -> String {}
+    "fpNaN" "(" InsertDzInt "," InsertDzInt ")" -> Float {cons("Float1337Syn")}
+    "#substitutePlain" "(" InsertDzK "," InsertDzMap ")" -> K {cons("K1338Syn")}
+    "isBound" "(" InsertDzKLabel "," InsertDzInt ")" -> Bool {cons("Bool1340Syn")}
+    "fresh" "(" InsertDzString ")" -> KItem {cons("KItem1343Syn")}
+    "isVariable" "(" InsertDzBag ")" -> Bool {cons("Bool1344Syn")}
+    "#substituteMap" "(" InsertDzMap "," InsertDzMap "," InsertDzSet "," InsertDzMap ")" -> Map {cons("Map1345Syn")}
+    "Consts2SMTLib" "(" InsertDzSet ")" -> String {cons("String1346Syn")}
+    K "[" InsertDzKList "/" InsertDzKList "]" -> K {cons("K1347Syn")}
+    "neMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1348Syn")}
+    DzFloat -> Float {}
+    "rfindString" "(" InsertDzString "," InsertDzString "," InsertDzInt ")" -> Int {cons("Int1349Syn")}
+    "#freshSubst1" "(" InsertDzSet "," InsertDzSet "," InsertDzMap "," InsertDzK "," InsertDzK ")" -> Map {cons("Map1350Syn")}
+    "Id2String" "(" InsertDzId ")" -> String {cons("String1353Syn")}
+    "#ELOOP" -> IOError {cons("IOError1354Syn")}
+    "String2Base" "(" InsertDzString "," InsertDzInt ")" -> Int {cons("Int1355Syn")}
+    "#systemResult" "(" InsertDzInt "," InsertDzString "," InsertDzString ")" -> KItem {cons("KItem1356Syn")}
+    "keys" "(" InsertDzMap ")" -> Set {cons("Set1357Syn")}
+    "#patternMatch1" "(" InsertDzKList "," InsertDzMap ")" -> Map {cons("Map1358Syn")}
+    "#stdin" -> Int {cons("Int1359Syn")}
+    "##tcpRequest" "(" InsertDzString ")" -> String {cons("String1360Syn")}
+    "maxInt" "(" InsertDzInt "," InsertDzInt ")" -> Int {cons("Int1363Syn")}
+    "K2SMTLib" "(" InsertDzK ")" -> String {cons("String1364Syn")}
+    "lengthString" "(" InsertDzString ")" -> Int {cons("Int1365Syn")}
+    "#isMapInK" "(" InsertDzK ")" -> Bool {cons("Bool1368Syn")}
+    "#parseToken" "(" InsertDzString "," InsertDzString ")" -> KItem {cons("KItem1370Syn")}
+    "uvalueMInt" "(" InsertDzMInt ")" -> Int {cons("Int1372Syn")}
+    "smulMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List1373Syn")}
+    "#system" "(" InsertDzString ")" -> KItem {cons("KItem1374Syn")}
+    "#substituteList" "(" InsertDzK "," InsertDzMap "," InsertDzSet ")" -> K {cons("K1377Syn")}
+    "#stat" "(" InsertDzString ")" -> KList {cons("KList1378Syn")}
+    "ultMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1379Syn")}
+    Float "<=Float" Float -> Bool {left, cons("Bool1380Syn")}
+    "svalueMInt" "(" InsertDzMInt ")" -> Int {cons("Int1383Syn")}
+    "tanFloat" "(" InsertDzFloat ")" -> Float {cons("Float1384Syn")}
+    "replace" "(" InsertDzString "," InsertDzString "," InsertDzString "," InsertDzInt ")" -> String {cons("String1385Syn")}
+    "sgtMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1386Syn")}
+    ".Set" -> Set {cons("Set1387Syn")}
+    "#close" "(" InsertDzInt ")" -> K {cons("K1388Syn")}
+    "#substituteSet" "(" InsertDzSet "," InsertDzMap "," InsertDzSet "," InsertDzSet ")" -> Set {cons("Set1389Syn")}
+    "minInt" "(" InsertDzInt "," InsertDzInt ")" -> Int {cons("Int1390Syn")}
+    List List -> List {left, cons("List1392Syn")}
+    "sMinMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1394Syn")}
+    "#rebind" "(" InsertDzK "," InsertDzSet "," InsertDzSet "," InsertDzSet ")" -> K {cons("K1395Syn")}
+    Map "<=Map" Map -> Bool {cons("Bool1396Syn")}
+    Int ">Int" Int -> Bool {left, cons("Bool1397Syn")}
+    "String2Id" "(" InsertDzString ")" -> Id {cons("Id1398Syn")}
+    "ceilFloat" "(" InsertDzFloat ")" -> Float {cons("Float1399Syn")}
+    "#ENOTDIR" -> IOError {cons("IOError1400Syn")}
+    String "==String" String -> Bool {left, cons("Bool1402Syn")}
+    "atanFloat" "(" InsertDzFloat ")" -> Float {cons("Float1403Syn")}
+    String "+String" String -> String {left, cons("String1405Syn")}
+    String ">=String" String -> Bool {cons("Bool1407Syn")}
+    "sdivMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List1408Syn")}
+    Int "<=Int" Int -> Bool {left, cons("Bool1409Syn")}
+    K "in" Set -> Bool {cons("Bool1420Syn")}
+    ".Map" -> Map {cons("Map1422Syn")}
+    KLabel "=/=KLabel" KLabel -> Bool {cons("Bool1423Syn")}
+    KList "==KList" KList -> Bool {cons("Bool1424Syn")}
+    String -> TCPAnswer {}
+    Int "==Int" Int -> Bool {left, cons("Bool1425Syn")}
+    "Char2String" "(" InsertDzChar ")" -> String {cons("String1426Syn")}
+    "#freeVarsBinder" "(" InsertDzK "," InsertDzSet ")" -> Set {cons("Set1428Syn")}
+    "replaceAll" "(" InsertDzString "," InsertDzString "," InsertDzString ")" -> String {cons("String1430Syn")}
+    "concatenateMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1432Syn")}
+    Int ">=Int" Int -> Bool {left, cons("Bool1433Syn")}
+    "lshrMInt" "(" InsertDzMInt "," InsertDzInt ")" -> MInt {cons("MInt1434Syn")}
+    "sltMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1435Syn")}
+    "digitsOfMInt" "(" InsertDzMInt "," InsertDzInt "," InsertDzInt ")" -> List {cons("List1436Syn")}
+    "#freeVars" "(" InsertDzKList "," InsertDzSet "," InsertDzSet ")" -> Set {cons("Set1437Syn")}
+    "#ENOENT" -> IOError {cons("IOError1438Syn")}
+    "#freshSubst" "(" InsertDzSet "," InsertDzSet "," InsertDzMap ")" -> K {cons("K1439Syn")}
+    "usubMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List1440Syn")}
+    "#EINVAL" -> IOError {cons("IOError1443Syn")}
+    "umaxMInt" "(" InsertDzInt ")" -> Int {cons("Int1444Syn")}
+    String ">String" String -> Bool {cons("Bool1445Syn")}
+    Bag "=Bag" Bag -> Bool {cons("Bool1446Syn")}
+    "sremMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List1447Syn")}
+    "isToken" "(" InsertDzK ")" -> Bool {cons("Bool1448Syn")}
+    "floorFloat" "(" InsertDzFloat ")" -> Float {cons("Float1449Syn")}
+    "#freshSym" "(" InsertDzK ")" -> K {cons("K1450Syn")}
+    "precisionFloat" "(" InsertDzFloat ")" -> Int {cons("Int1452Syn")}
+    List "[" InsertDzInt "]" -> K {cons("K1453Syn")}
+    "String2K" "(" InsertDzString ")" -> K {cons("K1455Syn")}
+    "String2Char" "(" InsertDzString ")" -> Char {cons("Char1456Syn")}
+    "#stdout" -> Int {cons("Int1457Syn")}
+    "getVariables" "(" InsertDzK ")" -> Set {cons("Set1458Syn")}
+    "#tcpError" "(" InsertDzString ")" -> TCPError {cons("TCPError1459Syn")}
+    "#noparse" -> IOError {cons("IOError1462Syn")}
+    Float ">Float" Float -> Bool {left, cons("Bool1463Syn")}
+    "extractMInt" "(" InsertDzMInt "," InsertDzInt "," InsertDzInt ")" -> MInt {cons("MInt1465Syn")}
+    "freshVariables" "(" InsertDzSet "," InsertDzK ")" -> KItem {cons("KItem1466Syn")}
+    "checkSat" "(" InsertDzBool ")" -> String {cons("String1468Syn")}
+    "exists" InsertDzSet "." Bool -> Bool {cons("Bool1469Syn")}
+    "minusInfinity" "(" InsertDzInt "," InsertDzInt ")" -> Float {cons("Float1470Syn")}
+    "$mi" "(" InsertDzInt "," InsertDzInt ")" -> MInt {cons("MInt1473Syn")}
+    "Int2Float" "(" InsertDzInt "," InsertDzInt "," InsertDzInt ")" -> Float {cons("Float1474Syn")}
+    "isVariable" "(" InsertDzList ")" -> Bool {cons("Bool1475Syn")}
+    "#istream" "(" InsertDzInt ")" -> Stream {cons("Stream1476Syn")}
+    "decomposeMatching" "(" InsertDzKList "," InsertDzKList ")" -> KList {cons("KList1477Syn")}
+    "replaceFirst" "(" InsertDzString "," InsertDzString "," InsertDzString ")" -> String {cons("String1478Syn")}
+    "#getVars" "(" InsertDzK ")" -> Set {cons("Set1479Syn")}
+    "#getSymLabel" "(" InsertDzString ")" -> K {cons("K1480Syn")}
+    "freeVariables" "(" InsertDzKList ")" -> Set {cons("Set1482Syn")}
+    "#freshVar1" "(" InsertDzSet "," InsertDzK ")" -> K {cons("K1483Syn")}
+    "#substituteBinder2" "(" InsertDzK "," InsertDzMap "," InsertDzSet "," InsertDzSet ")" -> K {cons("K1484Syn")}
+    KResult -> KItem {}
+    "#ENAMETOOLONG" -> IOError {cons("IOError1485Syn")}
+    "plusInfinity" "(" InsertDzInt "," InsertDzInt ")" -> Float {cons("Float1486Syn")}
+    "significandFloat" "(" InsertDzFloat ")" -> MInt {cons("MInt1487Syn")}
+    "getKLabel" K -> KLabel {cons("KLabel1488Syn")}
+    "orMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1489Syn")}
+    "read" -> Exp {cons("Exp1490Syn")}
+    Float "==Float" Float -> Bool {left, cons("Bool1492Syn")}
+    "size" "(" InsertDzMap ")" -> Int {cons("Int1493Syn")}
+    "dummy" "(" InsertDzKList ")" -> KItem {cons("KItem1494Syn")}
+    "#getc" "(" InsertDzInt ")" -> KItem {cons("KItem1495Syn")}
+    "sleMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1496Syn")}
+    "bool2Int" "(" InsertDzBool ")" -> Int {cons("Int1497Syn")}
+    "#retrieveTCPError" "(" InsertDzString ")" -> String {cons("String1498Syn")}
+    "#boundVars1" "(" InsertDzK ")" -> Set {cons("Set1499Syn")}
+    "umulMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List1500Syn")}
+    "minFloat" "(" InsertDzFloat "," InsertDzFloat ")" -> Float {cons("Float1502Syn")}
+    "isMatching" "(" InsertDzKList "," InsertDzKList ")" -> Bool {cons("Bool1504Syn")}
+    String "<=String" String -> Bool {cons("Bool1505Syn")}
+    "#EOF" -> IOError {cons("IOError1506Syn")}
+    "mulMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1508Syn")}
+    "#substituteFV" "(" InsertDzK "," InsertDzMap "," InsertDzSet ")" -> K {cons("K1509Syn")}
+    "#tell" "(" InsertDzInt ")" -> KItem {cons("KItem1520Syn")}
+    "#open" "(" InsertDzString ")" -> KItem {cons("KItem1522Syn")}
+    "#splitedBinder" "(" InsertDzKList "," InsertDzKList "," InsertDzSet ")" -> KItem {cons("KItem1523Syn")}
+    "choice" "(" InsertDzMap ")" -> K {cons("K1524Syn")}
+    "#isTCPError" "(" InsertDzString ")" -> Bool {cons("Bool1526Syn")}
+    "countAllOccurences" "(" InsertDzString "," InsertDzString ")" -> Int {cons("Int1527Syn")}
+    "overflowMInt" "(" InsertDzList ")" -> Bool {cons("Bool1528Syn")}
+    "sMaxMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> MInt {cons("MInt1529Syn")}
+    "soverflowMInt" "(" InsertDzInt "," InsertDzInt ")" -> Bool {cons("Bool1532Syn")}
+    "#freeVarsBinder1" "(" InsertDzK "," InsertDzSet ")" -> Set {cons("Set1533Syn")}
+    K "=K" K -> Bool {cons("Bool1534Syn")}
+    "#binderSplit1" "(" InsertDzKLabel "," InsertDzInt "," InsertDzKList "," InsertDzKList "," InsertDzKList "," InsertDzSet ")" -> K {cons("K1535Syn")}
+    "size" "(" InsertDzSet ")" -> Int {cons("Int1536Syn")}
+    "#ESPIPE" -> IOError {cons("IOError1537Syn")}
+    "uaddMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> List {cons("List1538Syn")}
+    "#freshSymSort" "(" InsertDzString ")" -> K {cons("K1540Syn")}
+    Map "[" InsertDzK "<-" "undef" "]" -> Map {cons("Map1542Syn")}
+    "forall" InsertDzSet "." Bool -> Bool {cons("Bool1543Syn")}
+    K "in" List -> Bool {cons("Bool1544Syn")}
+    "String2DotK" "(" InsertDzTCPAnswer ")" -> K {cons("K1545Syn")}
+    "#seek" "(" InsertDzInt "," InsertDzInt ")" -> K {cons("K1547Syn")}
+    "eqMInt" "(" InsertDzMInt "," InsertDzMInt ")" -> Bool {cons("Bool1548Syn")}
+    "#ioError" "(" InsertDzString ")" -> KItem {cons("KItem1549Syn")}
+    "asinFloat" "(" InsertDzFloat ")" -> Float {cons("Float1550Syn")}
+    "print" "(" InsertDzExp ")" -> Exp {cons("Exp1552Syn")}
+    Set    -> InsertDzSet
+    MInt    -> InsertDzMInt
+    Bag    -> InsertDzBag
+    K    -> InsertDzK
+    String    -> InsertDzString
+    KList    -> InsertDzKList
+    Int    -> InsertDzInt
+    KLabel    -> InsertDzKLabel
+    Float    -> InsertDzFloat
+    Bool    -> InsertDzBool
+    Char    -> InsertDzChar
+    List    -> InsertDzList
+    Id    -> InsertDzId
+    TCPAnswer    -> InsertDzTCPAnswer
+    Exp    -> InsertDzExp
+    Map    -> InsertDzMap
+    KItem    -> InsertDzKItem
+
+
+    VARID  ":Nat"        -> NatDzVar            {cons("Nat12Var")}
+    VARID  ":Nat{" TagListDz "}"        -> NatDzVar            {cons("Nat12VarAttr")}
+    VARID  ":Set"        -> SetDzVar            {cons("Set12Var")}
+    VARID  ":Set{" TagListDz "}"        -> SetDzVar            {cons("Set12VarAttr")}
+    VARID  ":Variable"        -> VariableDzVar            {cons("Variable12Var")}
+    VARID  ":Variable{" TagListDz "}"        -> VariableDzVar            {cons("Variable12VarAttr")}
+    VARID  ":MInt"        -> MIntDzVar            {cons("MInt12Var")}
+    VARID  ":MInt{" TagListDz "}"        -> MIntDzVar            {cons("MInt12VarAttr")}
+    VARID  ":LowerCase"        -> LowerCaseDzVar            {cons("LowerCase12Var")}
+    VARID  ":LowerCase{" TagListDz "}"        -> LowerCaseDzVar            {cons("LowerCase12VarAttr")}
+    VARID  ":CamelCaseId"        -> CamelCaseIdDzVar            {cons("CamelCaseId12Var")}
+    VARID  ":CamelCaseId{" TagListDz "}"        -> CamelCaseIdDzVar            {cons("CamelCaseId12VarAttr")}
+    VARID  ":String"        -> StringDzVar            {cons("String12Var")}
+    VARID  ":String{" TagListDz "}"        -> StringDzVar            {cons("String12VarAttr")}
+    VARID  ":Int"        -> IntDzVar            {cons("Int12Var")}
+    VARID  ":Int{" TagListDz "}"        -> IntDzVar            {cons("Int12VarAttr")}
+    VARID  ":Bool"        -> BoolDzVar            {cons("Bool12Var")}
+    VARID  ":Bool{" TagListDz "}"        -> BoolDzVar            {cons("Bool12VarAttr")}
+    VARID  ":Char"        -> CharDzVar            {cons("Char12Var")}
+    VARID  ":Char{" TagListDz "}"        -> CharDzVar            {cons("Char12VarAttr")}
+    VARID  ":Stream"        -> StreamDzVar            {cons("Stream12Var")}
+    VARID  ":Stream{" TagListDz "}"        -> StreamDzVar            {cons("Stream12VarAttr")}
+    VARID  ":List"        -> ListDzVar            {cons("List12Var")}
+    VARID  ":List{" TagListDz "}"        -> ListDzVar            {cons("List12VarAttr")}
+    VARID  ":TCPAnswer"        -> TCPAnswerDzVar            {cons("TCPAnswer12Var")}
+    VARID  ":TCPAnswer{" TagListDz "}"        -> TCPAnswerDzVar            {cons("TCPAnswer12VarAttr")}
+    VARID  ":#Int"        -> DzIntDzVar            {cons("DzInt12Var")}
+    VARID  ":#Int{" TagListDz "}"        -> DzIntDzVar            {cons("DzInt12VarAttr")}
+    VARID  ":#String"        -> DzStringDzVar            {cons("DzString12Var")}
+    VARID  ":#String{" TagListDz "}"        -> DzStringDzVar            {cons("DzString12VarAttr")}
+    VARID  ":#Bool"        -> DzBoolDzVar            {cons("DzBool12Var")}
+    VARID  ":#Bool{" TagListDz "}"        -> DzBoolDzVar            {cons("DzBool12VarAttr")}
+    VARID  ":PascalCaseId"        -> PascalCaseIdDzVar            {cons("PascalCaseId12Var")}
+    VARID  ":PascalCaseId{" TagListDz "}"        -> PascalCaseIdDzVar            {cons("PascalCaseId12VarAttr")}
+    VARID  ":UpperCase"        -> UpperCaseDzVar            {cons("UpperCase12Var")}
+    VARID  ":UpperCase{" TagListDz "}"        -> UpperCaseDzVar            {cons("UpperCase12VarAttr")}
+    VARID  ":TCPError"        -> TCPErrorDzVar            {cons("TCPError12Var")}
+    VARID  ":TCPError{" TagListDz "}"        -> TCPErrorDzVar            {cons("TCPError12VarAttr")}
+    VARID  ":Float"        -> FloatDzVar            {cons("Float12Var")}
+    VARID  ":Float{" TagListDz "}"        -> FloatDzVar            {cons("Float12VarAttr")}
+    VARID  ":IOError"        -> IOErrorDzVar            {cons("IOError12Var")}
+    VARID  ":IOError{" TagListDz "}"        -> IOErrorDzVar            {cons("IOError12VarAttr")}
+    VARID  ":Id"        -> IdDzVar            {cons("Id12Var")}
+    VARID  ":Id{" TagListDz "}"        -> IdDzVar            {cons("Id12VarAttr")}
+    VARID  ":Exp"        -> ExpDzVar            {cons("Exp12Var")}
+    VARID  ":Exp{" TagListDz "}"        -> ExpDzVar            {cons("Exp12VarAttr")}
+    VARID  ":Map"        -> MapDzVar            {cons("Map12Var")}
+    VARID  ":Map{" TagListDz "}"        -> MapDzVar            {cons("Map12VarAttr")}
+    VARID  ":#Float"        -> DzFloatDzVar            {cons("DzFloat12Var")}
+    VARID  ":#Float{" TagListDz "}"        -> DzFloatDzVar            {cons("DzFloat12VarAttr")}
+
+     K CastTypeDz "Nat"    -> VariableDz    {cons("Nat1Cast")}
+     K CastTypeDz "Nat{" TagListDz "}"    -> VariableDz    {cons("Nat1CastAttr")}
+     K CastTypeDz "Set"    -> VariableDz    {cons("Set1Cast")}
+     K CastTypeDz "Set{" TagListDz "}"    -> VariableDz    {cons("Set1CastAttr")}
+     K CastTypeDz "Variable"    -> VariableDz    {cons("Variable1Cast")}
+     K CastTypeDz "Variable{" TagListDz "}"    -> VariableDz    {cons("Variable1CastAttr")}
+     K CastTypeDz "MInt"    -> VariableDz    {cons("MInt1Cast")}
+     K CastTypeDz "MInt{" TagListDz "}"    -> VariableDz    {cons("MInt1CastAttr")}
+     K CastTypeDz "LowerCase"    -> VariableDz    {cons("LowerCase1Cast")}
+     K CastTypeDz "LowerCase{" TagListDz "}"    -> VariableDz    {cons("LowerCase1CastAttr")}
+     K CastTypeDz "CamelCaseId"    -> VariableDz    {cons("CamelCaseId1Cast")}
+     K CastTypeDz "CamelCaseId{" TagListDz "}"    -> VariableDz    {cons("CamelCaseId1CastAttr")}
+     K CastTypeDz "String"    -> VariableDz    {cons("String1Cast")}
+     K CastTypeDz "String{" TagListDz "}"    -> VariableDz    {cons("String1CastAttr")}
+     K CastTypeDz "Int"    -> VariableDz    {cons("Int1Cast")}
+     K CastTypeDz "Int{" TagListDz "}"    -> VariableDz    {cons("Int1CastAttr")}
+     K CastTypeDz "Bool"    -> VariableDz    {cons("Bool1Cast")}
+     K CastTypeDz "Bool{" TagListDz "}"    -> VariableDz    {cons("Bool1CastAttr")}
+     K CastTypeDz "Char"    -> VariableDz    {cons("Char1Cast")}
+     K CastTypeDz "Char{" TagListDz "}"    -> VariableDz    {cons("Char1CastAttr")}
+     K CastTypeDz "Stream"    -> VariableDz    {cons("Stream1Cast")}
+     K CastTypeDz "Stream{" TagListDz "}"    -> VariableDz    {cons("Stream1CastAttr")}
+     K CastTypeDz "List"    -> VariableDz    {cons("List1Cast")}
+     K CastTypeDz "List{" TagListDz "}"    -> VariableDz    {cons("List1CastAttr")}
+     K CastTypeDz "TCPAnswer"    -> VariableDz    {cons("TCPAnswer1Cast")}
+     K CastTypeDz "TCPAnswer{" TagListDz "}"    -> VariableDz    {cons("TCPAnswer1CastAttr")}
+     K CastTypeDz "#Int"    -> VariableDz    {cons("DzInt1Cast")}
+     K CastTypeDz "#Int{" TagListDz "}"    -> VariableDz    {cons("DzInt1CastAttr")}
+     K CastTypeDz "#String"    -> VariableDz    {cons("DzString1Cast")}
+     K CastTypeDz "#String{" TagListDz "}"    -> VariableDz    {cons("DzString1CastAttr")}
+     K CastTypeDz "#Bool"    -> VariableDz    {cons("DzBool1Cast")}
+     K CastTypeDz "#Bool{" TagListDz "}"    -> VariableDz    {cons("DzBool1CastAttr")}
+     K CastTypeDz "PascalCaseId"    -> VariableDz    {cons("PascalCaseId1Cast")}
+     K CastTypeDz "PascalCaseId{" TagListDz "}"    -> VariableDz    {cons("PascalCaseId1CastAttr")}
+     K CastTypeDz "UpperCase"    -> VariableDz    {cons("UpperCase1Cast")}
+     K CastTypeDz "UpperCase{" TagListDz "}"    -> VariableDz    {cons("UpperCase1CastAttr")}
+     K CastTypeDz "TCPError"    -> VariableDz    {cons("TCPError1Cast")}
+     K CastTypeDz "TCPError{" TagListDz "}"    -> VariableDz    {cons("TCPError1CastAttr")}
+     K CastTypeDz "Float"    -> VariableDz    {cons("Float1Cast")}
+     K CastTypeDz "Float{" TagListDz "}"    -> VariableDz    {cons("Float1CastAttr")}
+     K CastTypeDz "IOError"    -> VariableDz    {cons("IOError1Cast")}
+     K CastTypeDz "IOError{" TagListDz "}"    -> VariableDz    {cons("IOError1CastAttr")}
+     K CastTypeDz "Id"    -> VariableDz    {cons("Id1Cast")}
+     K CastTypeDz "Id{" TagListDz "}"    -> VariableDz    {cons("Id1CastAttr")}
+     K CastTypeDz "Exp"    -> VariableDz    {cons("Exp1Cast")}
+     K CastTypeDz "Exp{" TagListDz "}"    -> VariableDz    {cons("Exp1CastAttr")}
+     K CastTypeDz "Map"    -> VariableDz    {cons("Map1Cast")}
+     K CastTypeDz "Map{" TagListDz "}"    -> VariableDz    {cons("Map1CastAttr")}
+     K CastTypeDz "#Float"    -> VariableDz    {cons("DzFloat1Cast")}
+     K CastTypeDz "#Float{" TagListDz "}"    -> VariableDz    {cons("DzFloat1CastAttr")}
+     NatDzVar   -> Nat
+     SetDzVar   -> Set
+     VariableDzVar   -> Variable
+     MIntDzVar   -> MInt
+     LowerCaseDzVar   -> LowerCase
+     CamelCaseIdDzVar   -> CamelCaseId
+     StringDzVar   -> String
+     IntDzVar   -> Int
+     BoolDzVar   -> Bool
+     CharDzVar   -> Char
+     StreamDzVar   -> Stream
+     ListDzVar   -> List
+     TCPAnswerDzVar   -> TCPAnswer
+     DzIntDzVar   -> DzInt
+     DzStringDzVar   -> DzString
+     DzBoolDzVar   -> DzBool
+     PascalCaseIdDzVar   -> PascalCaseId
+     UpperCaseDzVar   -> UpperCase
+     TCPErrorDzVar   -> TCPError
+     FloatDzVar   -> Float
+     IOErrorDzVar   -> IOError
+     IdDzVar   -> Id
+     ExpDzVar   -> Exp
+     MapDzVar   -> Map
+     DzFloatDzVar   -> DzFloat
+     K CastTypeDz "K"                         -> VariableDz    {cons("K1Cast")}
+     K CastTypeDz "KItem"                     -> VariableDz    {cons("KItem1Cast")}
+     K CastTypeDz "K{" TagListDz "}"        -> VariableDz    {cons("K1CastAttr")}
+     K CastTypeDz "KItem{" TagListDz "}"    -> VariableDz    {cons("KItem1CastAttr")}
+
+    VariableDz -> K
+
+
+    DzDzString        -> DzString    {cons("DzString1Const")}
+    DzDzBool        -> DzBool    {cons("DzBool1Const")}
+    DzKLabel        -> KLabel    {cons("KLabel1Const")}
+    DzDzInt        -> DzInt    {cons("DzInt1Const")}
+    DzDzId        -> DzId    {cons("DzId1Const")}
+    DzDzFloat        -> DzFloat    {cons("DzFloat1Const")}
+
+
+context-free restrictions
+    NatDzVar -/- [a-zA-Z0-9]
+    SetDzVar -/- [a-zA-Z0-9]
+    VariableDzVar -/- [a-zA-Z0-9]
+    MIntDzVar -/- [a-zA-Z0-9]
+    LowerCaseDzVar -/- [a-zA-Z0-9]
+    CamelCaseIdDzVar -/- [a-zA-Z0-9]
+    StringDzVar -/- [a-zA-Z0-9]
+    IntDzVar -/- [a-zA-Z0-9]
+    BoolDzVar -/- [a-zA-Z0-9]
+    CharDzVar -/- [a-zA-Z0-9]
+    StreamDzVar -/- [a-zA-Z0-9]
+    ListDzVar -/- [a-zA-Z0-9]
+    TCPAnswerDzVar -/- [a-zA-Z0-9]
+    DzIntDzVar -/- [a-zA-Z0-9]
+    DzStringDzVar -/- [a-zA-Z0-9]
+    DzBoolDzVar -/- [a-zA-Z0-9]
+    PascalCaseIdDzVar -/- [a-zA-Z0-9]
+    UpperCaseDzVar -/- [a-zA-Z0-9]
+    TCPErrorDzVar -/- [a-zA-Z0-9]
+    FloatDzVar -/- [a-zA-Z0-9]
+    IOErrorDzVar -/- [a-zA-Z0-9]
+    IdDzVar -/- [a-zA-Z0-9]
+    ExpDzVar -/- [a-zA-Z0-9]
+    MapDzVar -/- [a-zA-Z0-9]
+    DzFloatDzVar -/- [a-zA-Z0-9]
+    VariableDz -/- [a-zA-Z0-9]
+lexical syntax
+    "Infinity" -> DzDzFloat
+    "#token" -> DzKLabel
+    "true" -> DzDzBool
+    "'#andBool" -> DzKLabel
+    "#symEqualitySort" -> DzKLabel
+    "NaN" -> DzDzFloat
+    "false" -> DzDzBool
+    "isBinder" -> DzKLabel
+
+
+%% sort predicates
+    "isNat"      -> DzKLabel
+    "isSymbolicNat"      -> DzKLabel
+    "#symNat"      -> DzKLabel
+    "isSet"      -> DzKLabel
+    "isSymbolicSet"      -> DzKLabel
+    "#symSet"      -> DzKLabel
+    "isVariable"      -> DzKLabel
+    "isSymbolicVariable"      -> DzKLabel
+    "#symVariable"      -> DzKLabel
+    "isMInt"      -> DzKLabel
+    "isSymbolicMInt"      -> DzKLabel
+    "#symMInt"      -> DzKLabel
+    "isLowerCase"      -> DzKLabel
+    "isSymbolicLowerCase"      -> DzKLabel
+    "#symLowerCase"      -> DzKLabel
+    "isCamelCaseId"      -> DzKLabel
+    "isSymbolicCamelCaseId"      -> DzKLabel
+    "#symCamelCaseId"      -> DzKLabel
+    "isSymbolicK"      -> DzKLabel
+    "#symK"      -> DzKLabel
+    "isString"      -> DzKLabel
+    "isSymbolicString"      -> DzKLabel
+    "#symString"      -> DzKLabel
+    "isInt"      -> DzKLabel
+    "isSymbolicInt"      -> DzKLabel
+    "#symInt"      -> DzKLabel
+    "isBool"      -> DzKLabel
+    "isSymbolicBool"      -> DzKLabel
+    "#symBool"      -> DzKLabel
+    "isChar"      -> DzKLabel
+    "isSymbolicChar"      -> DzKLabel
+    "#symChar"      -> DzKLabel
+    "isStream"      -> DzKLabel
+    "isSymbolicStream"      -> DzKLabel
+    "#symStream"      -> DzKLabel
+    "isList"      -> DzKLabel
+    "isSymbolicList"      -> DzKLabel
+    "#symList"      -> DzKLabel
+    "isTCPAnswer"      -> DzKLabel
+    "isSymbolicTCPAnswer"      -> DzKLabel
+    "#symTCPAnswer"      -> DzKLabel
+    "is#Int"      -> DzKLabel
+    "is#String"      -> DzKLabel
+    "is#Bool"      -> DzKLabel
+    "isPascalCaseId"      -> DzKLabel
+    "isSymbolicPascalCaseId"      -> DzKLabel
+    "#symPascalCaseId"      -> DzKLabel
+    "isUpperCase"      -> DzKLabel
+    "isSymbolicUpperCase"      -> DzKLabel
+    "#symUpperCase"      -> DzKLabel
+    "isTCPError"      -> DzKLabel
+    "isSymbolicTCPError"      -> DzKLabel
+    "#symTCPError"      -> DzKLabel
+    "isKResult"      -> DzKLabel
+    "isSymbolicKResult"      -> DzKLabel
+    "#symKResult"      -> DzKLabel
+    "isFloat"      -> DzKLabel
+    "isSymbolicFloat"      -> DzKLabel
+    "#symFloat"      -> DzKLabel
+    "isIOError"      -> DzKLabel
+    "isSymbolicIOError"      -> DzKLabel
+    "#symIOError"      -> DzKLabel
+    "isId"      -> DzKLabel
+    "isSymbolicId"      -> DzKLabel
+    "#symId"      -> DzKLabel
+    "isExp"      -> DzKLabel
+    "isSymbolicExp"      -> DzKLabel
+    "#symExp"      -> DzKLabel
+    "isSymbolicKItem"      -> DzKLabel
+    "#symKItem"      -> DzKLabel
+    "isMap"      -> DzKLabel
+    "isSymbolicMap"      -> DzKLabel
+    "#symMap"      -> DzKLabel
+    "is#Float"      -> DzKLabel
+
+
+
+%% terminals reject
+    "K2String" -> VARID {reject}
+    "Int2Float" -> VARID {reject}
+    "String2Base" -> VARID {reject}
+    "Base2String" -> VARID {reject}
+    "KLabel2String" -> VARID {reject}
+    "Bag2String" -> VARID {reject}
+    "Infinity" -> VARID {reject}
+    "SMTCall" -> VARID {reject}
+    "String2Bool" -> VARID {reject}
+    "String2K" -> VARID {reject}
+    "String2Bag" -> VARID {reject}
+    "NaN" -> VARID {reject}
+    "String2Int" -> VARID {reject}
+    "ListItem" -> VARID {reject}
+    "K2SMTLib" -> VARID {reject}
+    "Float2Int" -> VARID {reject}
+    "Float2String" -> VARID {reject}
+    "String2DotK" -> VARID {reject}
+    "String2Id" -> VARID {reject}
+    "K2Sort" -> VARID {reject}
+    "String2Float" -> VARID {reject}
+    "SMTLibQuery" -> VARID {reject}
+    "String2KLabel" -> VARID {reject}
+    "Vars2SMTLib" -> VARID {reject}
+    "Int2String" -> VARID {reject}
+    "Consts2SMTLib" -> VARID {reject}
+    "Char2String" -> VARID {reject}
+    "String2Char" -> VARID {reject}
+    "Id2String" -> VARID {reject}
+    "SetItem" -> VARID {reject}
+
+lexical restrictions
+    %% follow restrictions
+    "#substitute" -/- [P].[l].[a].[i].[n].[L].[i].[s].[t]
+    "*" -/- [F].[l].[o].[a].[t]
+    "=" -/- [K].[L].[a].[b].[e].[l]
+    "/" -/- [I].[n].[t]
+    "mi" -/- [M].[I].[n].[t]
+    "-" -/- [F].[l].[o].[a].[t]
+    "replace" -/- [A].[l].[l]
+    "=" -/- [K]
+    "=/=K" -/- [L].[a].[b].[e].[l]
+    "#substitute" -/- [B].[i].[n].[d].[e].[r].[\1]
+    "#freshSym" -/- [N]
+    "=K" -/- [L].[a].[b].[e].[l]
+    "=" -/- [L].[i].[s].[t]
+    "==K" -/- [L].[a].[b].[e].[l]
+    "#freshSymSort" -/- [N]
+    "#freeVars" -/- [B].[i].[n].[d].[e].[r].[\1]
+    "#substitute" -/- [S].[e].[t]
+    "#substitute" -/- [K].[A].[r].[r].[o].[w]
+    "#substitute" -/- [B].[i].[n].[d].[e].[r]
+    "#substitutePlain" -/- [L].[i].[s].[t]
+    "#system" -/- [R].[e].[s].[u].[l].[t]
+    "=" -/- [B].[a].[g]
+    "+" -/- [I].[n].[t]
+    "#substitutePlain" -/- [L].[i].[s].[t].[\1]
+    "=" -/- [K].[L].[i].[s].[t]
+    "#substitute" -/- [P].[l].[a].[i].[n]
+    "-" -/- [I].[n].[t]
+    "#parse" -/- [I].[n].[p].[u].[t]
+    "#parse" -/- [T].[o].[k].[e].[n]
+    "+" -/- [S].[t].[r].[i].[n].[g]
+    "=" -/- [I].[n].[t]
+    "." -/- [S].[e].[t]
+    "-" -/- [S].[e].[t]
+    "=/=K" -/- [L].[i].[s].[t]
+    "#substitute" -/- [F].[V]
+    "#token" -/- [T].[o].[S].[t].[r].[i].[n].[g]
+    "=" -/- [S].[e].[t]
+    "=K" -/- [L].[i].[s].[t]
+    "-" -/- [M].[a].[p]
+    "String2K" -/- [L].[a].[b].[e].[l]
+    "==K" -/- [L].[i].[s].[t]
+    "#substitute" -/- [L].[i].[s].[t]
+    "in" -/- [K].[L].[i].[s].[t]
+    "fresh" -/- [I].[d]
+    "#substitute" -/- [P].[l].[a].[i].[n].[L].[i].[s].[t].[\1]
+    "." -/- [M].[a].[p]
+    "#system" -/- [T].[y].[p].[e].[s]
+    "*" -/- [I].[n].[t]
+    "#freshSym" -/- [S].[o].[r].[t].[N]
+    "." -/- [L].[i].[s].[t]
+    "+" -/- [F].[l].[o].[a].[t]
+    "#substitute" -/- [L].[i].[s].[t].[\1]
+    "fresh" -/- [I].[n].[t]
+    "#substitute" -/- [M].[a].[p]
+    "#parse" -/- [I].[n].[M].[o].[d].[u].[l].[e]
+    "replace" -/- [F].[i].[r].[s].[t]
+    "fresh" -/- [V].[a].[r].[i].[a].[b].[l].[e].[s]
+    "#substitute" -/- [B].[i].[n].[d].[e].[r].[\2]
+    "#freeVars" -/- [B].[i].[n].[d].[e].[r]
+    "#stat" -/- [T].[y].[p].[e].[s]
+    "#freshSym" -/- [S].[o].[r].[t]
+    "/" -/- [F].[l].[o].[a].[t]
+    "=" -/- [M].[a].[p]
+lexical restrictions
+%% some restrictions to ensure greedy matching for user defined constants
+    "is" -/- [\#A-Z]
+
+lexical syntax
+    [\-\+]? [0-9]+ -> DzIntDz
+    [\+\-]?[0-9]+"."[0-9]+([eE][\+\-]?[0-9]+)?([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    [\+\-]?"Infinity"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "Infinity" -> DzFloatDz {reject}
+    "NaN"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "NaN" -> DzFloatDz {reject}
+    "\"" ((~[\"\n\r\\]) | (((([\\][nrtf\"\\]) | ([\\][x][0-9a-fA-F][0-9a-fA-F])) | ([\\][u][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])) | ([\\][U][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])))* "\"" -> DzStringDz
+context-free syntax
+    DzStringDz -> DzString {cons("DzString1Const")}
+    DzIntDz -> DzInt {cons("DzInt1Const")}
+    DzFloatDz -> DzFloat {cons("DzFloat1Const")}
+
+
+context-free restrictions
+    "#" -/- [s].[y].[m]
+    DzInt -/-  [0-9]

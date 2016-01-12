@@ -1,0 +1,100 @@
+module Program
+
+imports Common
+imports KBuiltinsBasic
+exports
+
+context-free syntax
+context-free priorities
+{
+    Int -> Exp {}
+    Exp "*" Exp -> Exp {cons("Exp1429Syn")}
+    Exp "/" Exp -> Exp {cons("Exp1464Syn")}
+} > {
+    Exp "+" Exp -> Exp {cons("Exp1404Syn")}
+    Exp "-" Exp -> Exp {cons("Exp1382Syn")}
+    "let" InsertDzId "=" InsertDzExp "in" Exp -> Exp {cons("Exp1503Syn")}
+}
+
+context-free start-symbols
+DzString DzBool Float Bool Id String Exp DzInt Int KResult DzFloat K
+context-free syntax
+    DzString -> String {}
+    DzFloat -> Float {}
+    DzBool -> Bool {}
+    "read" -> Exp {cons("Exp1490Syn")}
+    Int -> KResult {}
+    "(" InsertDzExp ")" -> Exp {cons("Exp1Bracket")}
+    DzInt -> Int {}
+    "print" "(" InsertDzExp ")" -> Exp {cons("Exp1552Syn")}
+    Id -> InsertDzId
+    Exp -> InsertDzExp
+
+
+    DzDzString        -> DzString    {cons("DzString1Const")}
+    DzDzBool        -> DzBool    {cons("DzBool1Const")}
+    DzDzInt        -> DzInt    {cons("DzInt1Const")}
+    DzDzId        -> DzId    {cons("DzId1Const")}
+    DzDzFloat        -> DzFloat    {cons("DzFloat1Const")}
+
+
+
+%% start symbols subsorts
+    KItem        -> K
+    DzString        -> K
+    DzBool        -> K
+    Float        -> K
+    Bool        -> K
+    Id        -> K
+    String        -> K
+    Exp        -> K
+    DzInt        -> K
+    Int        -> K
+    DzFloat        -> K
+lexical syntax
+    "Infinity" -> DzDzFloat
+    "true" -> DzDzBool
+    "false" -> DzDzBool
+    "NaN" -> DzDzFloat
+
+
+    "read" -> IdDz {reject}
+    "Infinity" -> IdDz {reject}
+    "in" -> IdDz {reject}
+    "false" -> IdDz {reject}
+    "print" -> IdDz {reject}
+    "true" -> IdDz {reject}
+    "let" -> IdDz {reject}
+    "NaN" -> IdDz {reject}
+
+lexical restrictions
+    %% follow restrictions
+
+
+lexical syntax
+    [A-Za-z\_][A-Za-z0-9\_]* -> IdDz
+    "read" -> IdDz {reject}
+    "Infinity" -> IdDz {reject}
+    "in" -> IdDz {reject}
+    "false" -> IdDz {reject}
+    "print" -> IdDz {reject}
+    "true" -> IdDz {reject}
+    "let" -> IdDz {reject}
+    "NaN" -> IdDz {reject}
+    [\-\+]? [0-9]+ -> DzIntDz
+    [\+\-]?[0-9]+"."[0-9]+([eE][\+\-]?[0-9]+)?([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    [\+\-]?"Infinity"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "Infinity" -> DzFloatDz {reject}
+    "NaN"([fFdD]|([pP][0-9]+[xX][0-9]+))? -> DzFloatDz
+    "NaN" -> DzFloatDz {reject}
+    "\"" ((~[\"\n\r\\]) | (((([\\][nrtf\"\\]) | ([\\][x][0-9a-fA-F][0-9a-fA-F])) | ([\\][u][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])) | ([\\][U][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])))* "\"" -> DzStringDz
+context-free syntax
+    DzStringDz -> DzString {cons("DzString1Const")}
+    IdDz -> Id {cons("Id1Const")}
+    DzIntDz -> DzInt {cons("DzInt1Const")}
+    DzFloatDz -> DzFloat {cons("DzFloat1Const")}
+
+
+context-free restrictions
+    Id -/- [A-Za-z0-9\_]
+    DzInt -/-  [0-9]
