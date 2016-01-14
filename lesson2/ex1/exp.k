@@ -1,7 +1,8 @@
 require "modules/substitution.k"
+
 module EXP-SYNTAX
 
-syntax Exp ::= Int
+	syntax Exp ::= 	Int | Id
 						| Exp "*" Exp 				[seqstrict]
 						| Exp "/" Exp 				[seqstrict]
 						> Exp "+" Exp 				[seqstrict]
@@ -9,16 +10,15 @@ syntax Exp ::= Int
 						| "read"
 						| "print" "("	Exp ")"	[strict]
 						| "(" Exp ")"  				[bracket]
-						| "let" Id "=" Exp "in" Exp [strict(2)]
 
-						syntax KResult ::= Int
+	syntax KResult ::= Int
 
-syntax Ids ::= List{Id, ","}
+	syntax Ids ::= List{Id, ","}
 
-syntax Stmt ::= Exp ";" [strict]
-            | "var" Ids ";"
-            | Id "=" Exp ";" [strict(2)]
-            | Stmt Stmt [left]
+	syntax Stmt ::= Exp ";" [strict]
+	            | "var" Ids ";"
+	            | Id "=" Exp ";" [strict(2)]
+	            | Stmt Stmt [left]
 
 endmodule
 
@@ -50,8 +50,6 @@ module EXP
 
 	rule <k> read => I:Int ... </k>
 			 <in> ListItem(I) => .List ... </in>
-
-	rule let X:Id = I:Int in E:Exp => E[I/X]
 
 	rule St1:Stmt St2:Stmt => St1 ~> St2
 

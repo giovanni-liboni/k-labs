@@ -1,0 +1,8 @@
+load "/Users/giovanni/projects/github.com/giovanni-liboni/k-labs/k/lib/maude/lib/k-prelude"
+load "base.maude"
+load "builtins.maude"
+mod EXP is 
+  including EXP-BASE .
+  including EXP-BUILTINS .
+eq mainModule = 'EXP .
+endm
